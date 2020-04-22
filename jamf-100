@@ -1,0 +1,586 @@
+Section 2: iOS Core Competencies
+
+Lesson 2: iOS Setup
+
+• We can manipulate and modify settings through MDM enrollment
+
+• Place an iOS device near new device to automatically configure settings
+
+• Need a network connection or iTunes to use Setup Assistant
+
+• Touch ID: iPad mini 3 or newer or iPhone 5s or newer
+
+• Auto enable Siri, Location Services, App Analytics with Express Settings or customize it
+
+• iOS can be restored to factory settings through iTunes, Apple Config 2 or Settings app
+
+• iOS can be updated through iTunes, Apple Config 2 or Settings app
+
+• Devices are required to a activate during iOS Setup Assistant and cannot be bypassed
+
+
+Lesson 3: iOS Interface
+
+• In iOS 12 or later, you can activate dock inside an app by swiping up from bottom
+
+• By dragging an app from dock to screen, you can activate split view
+
+
+Lesson 6: iOS File and Storage Structure
+
+• Two partitions - iOS system data and then user
+
+• All third-party apps are sandboxed to prevent modifying contents of other apps without user permission
+
+• Local app data is removed when app is deleted but may still exist on iCloud
+
+• Shared iPad is enabled in Jamf in Prestage Enrollment, which allows IT admins to divide local storage for each user account
+
+• Apps that support cloud storage sync app data when a student logs in but other app data is locally cached
+
+• iOS system partition can only be modified by Settings app, Jamf Pro, Apple Config or iTunes
+
+
+Lesson 7: iOS Apps
+
+• Apps originate from App Store or in-house development. They are deployed via internal server or Jamf Pro in latter case.
+
+• Apple IDs allow purchase of content from iTunes, App Store or iBooks Store
+
+• Volume Store allows bulk purchase and distribution of apps and can be found in ABM
+
+
+Section 3: iOS Management
+
+Lesson 8: MDM for iOS
+
+• Jamf Pro supports MDM iOS 4 or later
+
+• MDM is available for iOS and tvOS
+
+• Jamf leveraging must include: Jamf Pro server, APNs, which can be obtained from Apple using Apple ID
+
+
+Lesson 9: Apple Services - iOS
+
+• APNs enables organizations to perform remote management tasks when APNs is available
+
+• ABM allows purchase of apps and books through Volume Store
+
+• Apple School Manager allows educational institutions to purchase through Volume Store, configure MDM, create managed Apple IDs for students under 13 y/o and set up iTunes U courses
+
+• Global Service Exchange is Apple’s service and repair management solution for certified technicians and organizations
+
+• APN enables wireless delivery of config policies via MDM, enable lost mode/tracking and installing/uninstalling apps/ebooks
+
+• Apple School Manager integrate with Student Information Systems and SFTP
+
+
+Lesson 10: Jamf Pro Introduction - iOS
+
+• Jamf Pro includes Java (runtime enviro), Apache Tomcat (web server) and MySQL (open-source database)
+
+• On prem Jamf Pro is either macOS, Ubuntu, Windows or RHEL
+
+• All communication with iOS devices is initiated by Jamf Pro
+
+• After install, admin needs to agree to: EULA, enter org and activation code and create initial Jamf Pro admin account
+
+• Shortcuts: ctrl 1 is dashboard; ctrl 2 computers; ctrl 3 devices; ctrl 4 users; ctrl 5 for all settings
+
+
+Lesson 11: Intro to Jamf Pro User Accounts
+
+• User types:
+
+ • Admin: full create, read, update and delete privileges;
+
+ • Auditor: read-only access
+
+ • Enrollment Only: privilege granting enrollment rights in Jamf Pro and Recon
+
+ • Custom: allows granular privileges
+
+
+Lesson 12: Automated MDM Enrollment and iOS Prestages
+
+• IT admins can deploy config profiles, apps and send remote commands
+
+• Automated MDM enrollment is used to facilitate zero-touch and provisioning
+
+• Four steps to enable automated enrollment
+
+ • Jamf Pro with Device Enrollment in ABM or ASM through server token
+
+ • Internet + iOS Setup Assistant activates enrollment
+
+ • Prestage Enrollment is configuration in Jamf Pro
+
+ • Additional config and deployment tasks begin once enrollment complete
+
+• Prestage Enrollments have config options:
+
+ • Enrollment during iOS Setup Assistant
+
+ • Requires credentials
+
+ • Supervise enabling mgmt actions in Jamf Pro
+
+ • Prevent un-enrollment
+
+ • Enable Shared iPad for use with ASM and managed Apple iDs
+
+ • Skip setup assistant
+
+ • Automate and enforce naming conventions
+
+• Enable device communication and Jamf Pro by downloading public key from Jamf Pro and uploading it to ABM or ASM
+
+
+Lesson 13: User-Initiated Enrollment for iOS
+
+• User-initiated enrollment is via enrollment portal on web
+
+• This can be configured in Global Management>User-Initiated Enrollment
+
+• Can skip CA profile if you have internal CA or SSL certificates
+
+• Users can enroll devices through 3 methods: URL, customized URL email or SMS text with customized URL
+
+• Enrollment invitations require SMTP server configured in Jamf Pro
+
+• iOS 10.3 and later requires additional steps to enable trust if Jamf Pro SSL certificate is not signed by trusted authority
+
+
+Lesson 14: iOS Inventory Searches
+
+• Inventory searches by default return exact input. It can be changed under user Account Preferences
+
+• Jamf Pro users can configure Inventory Display object in Jamf Pro to display additional info
+
+• Search results can be exported
+
+• Columns can be added in Settings>MDM>Inventory Display
+
+
+Lesson 15: View and Edit iOS Inventory Information
+
+• Jamf Pro stores inventory records for each enrolled device
+
+• Managed devices submit inventory data periodically
+
+• Inventory info is separated by categories in General: device type, platform, ownership type and iOS Version
+
+
+Lesson 16: iOS Scope
+
+• Scope allows IT admins to control which devices receive mgmt tasks
+
+• Scopes can be based on targets (initial pool of devices), limitations (reduce initial pool to specifics), exclusions (omissions)
+
+
+Lesson 17: iOS Groups
+
+• Unlike inventory searches, which includes managed and unmanaged devices, only managed devices are eligible for groups
+
+• Groups can be used for scoping config profiles, etc.
+
+
+Lesson 18: Config Profiles for iOS
+
+• Config profile deployment leverages communication with APNS
+
+• A hope must be defined to install config profiles through APNS
+
+• Commonly used config profiles: passcodes, restrictions, wifi
+
+• Payloads support multiple configs
+
+• Steps to troubleshoot config profile: verify payloads are configured properly, view config logs for deployment status, locate mgmt history
+
+• Profiles are updated on devices by uninstalling old one and installing new one
+
+
+Lesson 19: iOS App Deployment
+
+• Jamf Pro supports App Store and Books apps from Volume Store to mobile devices
+
+• App Store apps installed by Jamf Pro can be updated/removed remotely
+
+• Two distro methods for deploying apps: Make available in Self Service or Install Auto/Prompt users
+
+• Managed apps allow IT admins to automate removal of apps on devices
+
+• If a managed app was installed previously by a private Apple ID, it will install without prompt for user interaction
+
+
+Lesson 20: Remote Commands for iOS
+
+• Remote commands leverage APNs
+
+• Common commands: Update Inventory, Wipe Device, Update iOS, Enable Lost Mode, which locks device and displays custom message as well as GPS coordinates are sent to Jamf Pro
+
+• Remote commands can be sent to multiple devices simultaneously via Device Group>Action
+
+• Mobile devices auto update inventory once every day by default
+
+• Some commands with minimum iOS requirements
+
+• Enable Lost Mode command only supported by iOS 9.3 or later
+
+• Restart/Shutdown commands require 10.3 or later
+
+• Any supervised iOS 10.3 or later can run an iOS update with remote command
+
+
+
+tvOS Core Competencies
+
+Lesson 21: tvOS Setup
+
+• tvOS is pre-installed on all Apple TVs
+
+• tvOS can be updated over internet through Settings app, iTunes or Apple Config 2
+
+• tvOS can be restored to factory settings through iTunes or Apple Config 2
+
+• Restoring tvOS erases user data and updates it to latest version
+
+• tvOS devices are required to activate during Setup Assistant — can’t be bypassed
+
+• Pair remote by touching the Touch Surface
+
+
+Lesson 22: tvOS User Interface, Settings and Apps
+
+• Users have two options navigating: Siri Remote or Remote App for iOS
+
+• Settings app:
+
+ • General: restrictions, accessibility and more
+
+ • Accounts: Apple ID
+
+ • System: reset, restart, restore
+
+• 4th Gen Apple TVs and on support App Store
+
+ • Apple ID is used for App Store, iTunes or iBooks and download previously purchased content
+
+•  Menu button takes you to home page on Apple TV
+
+•  Open app by using Touch Surface on remote
+
+
+Lesson 23: Automated MDM Enrollment and tvOS PreStages
+
+• Jamf Pro supports MDM for Apple TVs running software 7 or later, tvOS 9 or later
+
+• Only tvOS 10.2 or later supports automated MDM enrollment
+
+• Four steps to enable automated MDM enrollment for tvOS:
+
+ • Associate Jamf Pro with DEP with server token
+
+ • On network, during Setup Assistant, devices activate and enroll
+
+ • PreStage enrollment configured in Jamf Pro provides additional instructions
+
+• Five Steps are unique to Apple TVs
+
+• One home screen for every Apple TV requires signing in to iCloud
+
+
+Lesson 24: Apple Configurator 2 Enrollment
+
+• Apple TVs running software 7 or later can be enrolled/supervised by Apple Config 2
+
+• Apple Configurator 2 is a free macOS app in App Store
+
+• CA Certificate and MDM profile is needed to enroll Apple TV
+
+• Both files can be generated in Jamf Pro under Enrollment Profiles in Mobile Devices tab
+
+• Apple Configurator 2 is only way to enroll/supervise Apple TVs not supported by automated MDM (tvOS 10.1 or earlier)
+
+
+Lesson 25: Configuration Profiles for tvOS
+
+• Apple TV shares three config profile payloads with mobile devices:
+
+ • Restrictions, Wifi, Single App Mode (locks tv into single app)
+
+• All config profiles apply through Apple’s push-notification service
+
+
+Lesson 26: Conference Room Display
+
+• Conference room display leverages AirPlay and is enabled with a config profile. An on-screen message is displayed
+
+
+Lesson 27: Remote Commands for tvOS
+
+• Remote commands are deployed via Jamf Pro leveraging APNs
+
+• Two commonly used commands: wipe device and update inventory
+
+• Remote commands can be sent to multiple devices simultaneously
+
+
+
+Sectin 6: macOS Core Competencies
+
+
+Lesson 28: macOS Setup
+
+• macOS can be installed in several ways
+
+ • Pre-installed
+
+ • App Store
+
+ • Recovery mode
+
+ • Internet Recovery
+
+• macOS Setup Assistant connected to internet activates computer with Apple and MDM enrollment, but activation IS optional because internet connectivity is not required unlike iOS
+
+• Signing in to Apple ID will link first local account to iCloud account, iTunes and App Store and others
+
+• First local account created on setup screen is given admin privileges
+
+• Express Set Up was introduced in High Sierra: turns on Siri, Location Services and sends Analytics to Apple
+
+
+Lesson 32: macOS File and Storage Structure
+
+• A partition map (scheme or table) allows macOS to manage info separately on each partition, which sets rules on how partitions function
+
+• GUID Partition Table (GPT)
+
+• Partitions are added to divide disk into volumes
+
+• APFS is default file system for 10.13 or later
+
+• Mac OS Extended (Journaled) is for 10.12 or earlier
+
+• By default, four volumes occupy APFS Container:
+
+ • Macintosh HD: system boot volume where macOS and user data is stored
+
+ • Preboot: hidden volume containing data needed to boot
+
+ • Recovery: hidden volume that includes utilities for troubleshooting/installing
+
+ • VM: virtual memory created when macOS High Sierra and later boots
+
+• Disk Utility: by default, only volumes appear in macOS High Sierra and later
+
+• macOS includes four visible root directories:
+
+ • Applications
+
+ • Library
+
+ • System
+
+ • Users (hidden users such as root and mgmt account are hidden exceptions)
+
+• APFS formatted volumes can shrink or grow without needing to partition volume
+
+• Clones are copy of a file or directory that doesn’t take space
+
+• Snapshots are point in time of full file system that’s read-only and able to be reverted to
+
+
+Lesson 33: macOS Apps
+
+• An app is a computer program that performs a specific task
+
+• App Store apps require internet and Apple ID to download
+
+• Only Mac App Store apps can be deleted in Launch Pad
+
+
+Lesson 34: App Preferences
+
+• macOS apps do not contain user-specific data like preferences or settings
+
+• A property list is a file that stores serialized objects like app data or system settings from macOS. It’s extension is plist
+
+• Property lists are found in /Library/Preferences (root user) and ~/Library/Preferences (user-level)
+
+• The tilde represents current user’s home directory
+
+• Property lists can be configured and remotely deployed through Jamf Pro
+
+• Preference list or a preference file is an xml file written in binary
+
+
+Lesson 35: Command Line Interface
+
+• Commands have a three part structure: command (e.g. ls), option (e.g. -l), argument (e.g. /Applications)
+
+• “man -k” -k means keyword
+
+• Press escape four times in Terminal to see list of all commands
+
+
+Lesson 36: CLI Part Two
+
+• / represents root of the hard drive or Macintosh HD
+
+• ~ represents current user’s home directory
+
+• Absolute file paths are the full path to a file or directory. They start at the top of the file system
+
+• Relative file paths are the short path to a file in relation to current workin directory
+
+• mkdir is to make a new directory
+
+• touch creates a new file
+
+• mv renames
+
+• rm command will not delete directory’s contents without the -r flag, which recursively deletes a directory and contents
+
+• -la shows permissions and contents; l is for long listing; a is for all items
+
+• Folders that start with a period are hidden in current directory
+
+• Folders that start with two periods are parent directory hidden files
+
+
+Lesson 37: CLI Part Three
+
+• To move cursor to beginning of command, use Control A
+
+• To move cursor to end of command, use Control E
+
+• Spaces in a title of a file or folder can be handled by quotes or \
+
+• Up arrow to find last 500 commands used
+
+• Hold down option key and click on character to jump in middle of a command instead of using left and right keys
+
+• Press tab key a second time when typing stuff out to see what folders begin with the same characters (e.g. “Do” may have two folders that begin with that)
+
+
+Lesson 38: Intro to Scripting
+
+• A script can be created with any app in which plain text can be created
+
+• First line o any script is command line interpreter; #!/bin/bash
+
+• Run a script in Terminal with sh command and dragging script into window
+
+• Scripts may be set as executable with chmod +x and dragged-in script in window
+
+• A script that is part of a service, launch daemon or launch agent should be set to executable
+
+• “nano myscript.sh” will create a script within terminal window and write to it wherever the myscript.sh file is created to
+
+
+
+Section 7: macOS Management
+
+
+Lesson 39: MDM for macOS
+
+• MDM may be installed as part of Jamf Management Framework
+
+• Jamf Management Framework is collection fo settings, processes and resource files
+
+• Utilizes APNs
+
+• To leverage MDM with Jamf Pro, you need: Jamf Pro server, APNs uploaded to Jamf Pro and APNs certificate obtained from Apple with an Apple ID
+
+• MDM available for macOS 10.7 or later
+
+
+Lesson 40: Apple Services - macOS
+
+• APNs: Apple Push Notification service that enables management tasks on MDM computers
+
+• ABM: allows businesses to purchase apps and books through Volume Store and configure automated MDM enrollment
+
+• Apple School Manager: allows educational institutions to do same as ABM + iTunes U courses + managed Apple IDs
+
+• Global Service Exchange (GSX): provides documentation for troubleshooting, hardware repair, maintenance and device warranty info
+
+
+Lesson 41: Jamf Pro Introduction - macOS
+
+• Jamf Pro initiates management tasks through MDM over APNs
+
+• Client computers can initiate the management task via Jamf Binary
+
+
+Lesson 43: Automated MDM Enrollment and macOS PreStages
+
+• Four steps to enable automated MDM enrollment:
+
+ • Associate Jamf Pro with Device Enrollment in Apple Business Manager or Apple School Manager through use of server token file
+
+• 3 main components when computer is enrolled: Jamf Binary, Management Account (local account responsible for remote access), Management Framework, which uses Jamf binary to check for management tasks, such as MDM profile
+
+• Big difference between iOS/tvOS only receive MDM profiles whereas computers use those listed in bullet point above
+
+• Automated MDM Workflow allows computers to communicate directly with Jamf Pro during activation: link device-enrollment account to Jamf Pro, machine communicates with ABM, which confirms its enrollment and then tells Jamf Pro, which installs policies.
+
+
+Lesson 44: User-Initiated Enrollment for macOS
+
+• Enrollment is the process of adding computers to Jamf Pro
+
+• Enrolling a computer with Jamf Pro installs Jamf Framework
+
+• It creates an inventory record
+
+• User-initiated enrollment allows users to enroll computers by logging into an enrollment portal which installs a QuickAdd package of Jamf Binary, management framework and MDM profile
+
+• User-initiated enrollment can be configured in Settings>Global Management>User-Initiated Enrollment
+
+• Management account credentials are required to enable computer enrollment with user-initiated enrollment but creating the new account is optional. It can be either a new local admin on the computer or a preexisting local admin
+
+• Signing QuickAdd packages with an Apple Developer certificate prevents Gatekeeper from disallowing it to run
+
+• Users enroll with user-initiated enrollment by either navigating to the URL of the enrollment portal or receiving an email invitation with a link to it
+
+• Sign QuickAdd package option in Global Management for 10.13 or later machines is not required
+
+
+Lesson 45: macOS Inventory Searches
+
+• By default, inventory searches return results machine exact input. This can be changed under Settings>Computer Management - Management Framework
+
+• Change search preferences under User avatar>Account Preferences
+
+• Settings>Computer Management>Inventory Display to make changes on what data is visible on searches
+
+
+Lesson 46: View and Edit macOS Inventory Info
+
+• Jamf Pro collects app data for all local applications installed by macOS but mobile devices only submit app info for user-installed apps on iOS
+
+• Need an initial pool of targets before excluding. If you only exclude, no one will get anything
+
+
+Lesson 49: Configuration Profiles for macOS
+
+• Configuration profile deployment leverages APNs
+
+• Common payloads: Passcode, Network, Restrictions
+
+• Steps to troubleshoot a config profile: verify payloads are configured properly, view config profile logs, examine management history in computer’s inventory record
+
+• File format is the same for iOS, macOS and tvOS but payload capabilities may differ
+
+• Once a command is issued from Jamf Pro, a notification is provided to Apple to deliver them
+
+• When our devices communicate with APNs, they receive notification and reach out to Jamf Pro to receive task. Then Jamf Pro sends it and reconnects with APNs to make task as resolved
+
+
+Lesson 50: macOS App Deployment
+
+• Two distribution methods: make available in Self Service or Install Automatically
