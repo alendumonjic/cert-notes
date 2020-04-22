@@ -4,17 +4,17 @@ Lesson 2: Using Essential Tools
 
 CLI Commands
 
-- pwd: print working directory
-- whoami: current username
-- ls: current directory
-- ls -l: -l is the "option," which shows names of directories and their properties
-- ip addr show: current IP configuration
-- free: available memory
-- free -m: m option is for megabytes
-- df - disk free and storage devices
-- df -h: h option is for human-readable formats
-- cat: Shows contents of a configuration file
-- findmnt: shows mounted file systems on machine
+	- pwd: print working directory
+	- whoami: current username
+	- ls: current directory
+	- ls -l: -l is the "option," which shows names of directories and their properties
+	- ip addr show: current IP configuration
+	- free: available memory
+	- free -m: m option is for megabytes
+	- df - disk free and storage devices
+	- df -h: h option is for human-readable formats
+	- cat: Shows contents of a configuration file
+	- findmnt: shows mounted file systems on machine
 
 
 Understanding the Shell
