@@ -195,6 +195,7 @@ Working with tar
 	- mv command can also be used to rename
 	- file command allows you to see what type of file your file is
 
+
 Working with Compressed Files
 	- gzip is most common compression utility
 	- bzip2 is an alternative
@@ -204,7 +205,7 @@ Working with Compressed Files
 	- gzip -k is to keep the original file in addition to the compressed file 
   
   
-  Miscellaneous
+Miscellaneous
 	- ["command] --help" is a good command to learn more like man but less
 	- "ls -d *[0-9]*" is a way to see all files with numbers in their names
 	- To copy a files with specific character range, use cp /etc/[a-c]* /tmp/files.	The dash is range
@@ -241,7 +242,8 @@ Using grep
 	- grep -A linda /etc/passwd; -A or -B prints lines before and after
 	- grep -Rl root /etc; recursive list grep
 	- generic regular expression parser: grep
-	
+
+
 Understanding Regular Expressions
 	- Regular Expressions are text patterns that are used by tools like grep
 	- Don't confuse regular expressions with globbing. To avoid this, put your regular expression entirely in single quotes. Example: grep 'a*' vs a*, which will return words beginning with the letter a.
