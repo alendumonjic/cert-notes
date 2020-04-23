@@ -120,7 +120,7 @@ Using vim
 	- :%s/old/new/g: calling the substitute globally (g), so %s/line/LINE/g means it 	will change "line" to "LINE" globally
 	
   
-Understanding Blobbing and Wildcards
+Understanding Globbing and Wildcards
 	- Globbing is a shell feature that helps match filenames
 	- Not to be confused with regular expressions, which help find text patterns
 	- For documentation: see man 7 glob
