@@ -210,3 +210,75 @@ Working with Compressed Files
 	- To copy a files with specific character range, use cp /etc/[a-c]* /tmp/files.	The dash is range
 	- mv [ab]* photos/: moves files beginning with a or b to /photos
 	- mv c* videos/: moves files beginning with c to /photos
+
+
+Lesson 4: Working with Text Files
+
+Using Common Set Tools
+	- more command was the original file pager; helps read contents of a text file; example: more /etc/passwd
+	- less command provides shorter bits of files; example: less /etc/passwd, which doesn't allow you to move up/back on page
+	- Use head to show the first 10 first lines of a text file; example: head -n 5 /etc/passwd -- first 5 lines shown
+	- Use tail to show the 10 last lines
+	- Use -n nn to specific to another number of lines
+	- You can pipe both head and tails
+	- Tail -f /var/log/messages will give you real-time view of logs as processes are documented to them
+	- Example: head -n 6 /etc/passwd | tail -n 1 -- this shows last line of first six
+	 - cat dumps text file contents on screen
+		- -A shows all non-printable characters
+		- -b numbers lines
+		- -s suppresses repeated empty lines
+	- tac is doing the same but in reverse order
+	- cut: filter output; example cut -f 3 [field number three] -d : /etc/passwd
+	- sort: sort output (chronologically or alphabetically); example sort -n (numeric)
+	- tr: translates; example tr [a-z] [A-Z] -- that changes lowercase to uppercase
+	
+
+Using grep
+	- grep is an excellent utility to find text files
+	- ps aux | grep ssh; filters out lines containing ssh
+	- grep linda *; looks in * to find occurrence of text "Linda"
+	- grep -i linda *; the -i makes it not case sensitive 
+	- grep -A linda /etc/passwd; -A or -B prints lines before and after
+	- grep -Rl root /etc; recursive list grep
+	- generic regular expression parser: grep
+	
+Understanding Regular Expressions
+	- Regular Expressions are text patterns that are used by tools like grep
+	- Don't confuse regular expressions with globbing. To avoid this, put your regular expression entirely in single quotes. Example: grep 'a*' vs a*, which will return words beginning with the letter a.
+	- Regular expressions are only for: grep, vim, awk, sed and other ones
+	- Extended regular expressions enhance basic regex features
+	- See man 7 regex for details
+	- Regular Expressions are built around atoms, which specifies what text is to be matched
+	- Atoms can be single characters, a range of characters or a dot
+	- Atoms can also be a class, such as [[:alpha:]], [[:upper:]], [[:digit:]] or [[:alnum:]]
+	- Second is the repetition operator, specifying how often a character occurs or recognizes if a character occurs multiple times: example: grep 'bo*t' regtext returns 'boot' but not 'boat'
+	- The third element is indicating where to find the next character
+	- Example: cat regtext
+	- Example: grep 'b.t' regtext -- this looks within regtext file whether it has words that begin with a b, have any character (.) after it and then the third letter is T
+	- Question marks are a part of extended regular expressions, which requires egrep instead of grep
+
+Common Regular Expressions: 
+	- ^ beginning of line; example: grep '^...' *
+	- $ end of line; example: grep '...$' *
+	- \< beginning of word; example: grep '\<root' 
+	- \> end of word; example: grep 'root\>'
+	- * zero or more times
+	- + one or more times
+	- ? zero or one time
+	- {n} exactly n times
+	
+
+Using awk
+	- awk is a powerful text utility that is specialized in data extraction and reporting
+	- It can perform actions based on selectors
+	- Example: awk -F : '/linda/ { print $4 }' /etc/passwd
+	- Example: awk -F : '{ print $NF }' /etc/passwd -- -F is a field separator, NF is number of fields
+	- Example: ls -l /etc | awk '/pass/ { print }' | less
+	
+
+Using sed
+	- sed = Stream editor, used to search and transform text
+	- Example: sed -n 4p sedfile -- this prints the fourth line of the sedfile file 
+	- Example: sed -i s/four/FOUR/g sedfile -- the -i allows sed to write directly to file
+	- Example: sed -i -e '2d' sedfile -- -e is edit command and 2d means it will delete line 2
+	
