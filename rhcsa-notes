@@ -284,3 +284,63 @@ Using sed
 	- Example: sed -i s/four/FOUR/g sedfile -- the -i allows sed to write directly to file
 	- Example: sed -i -e '2d' sedfile -- -e is edit command and 2d means it will delete line 2
 	
+	
+Lesson 5: Connecting to a Server
+
+Understanding the Root User
+	- Root user is a kernel space level user with direct access to system resources
+	
+
+Logging in to GUI
+	- Only ordinary users visible; click "Not listed" for others
+	- GNOME
+	
+Logging in to the Console
+	- 95% of all Linux systems don't have GUI
+	- Type in username and then password
+	
+Understanding Virtual Terminals
+	- TTY: another word for Terminal (/dev/tty)
+	- Virtual Terminal: ctrl alt fn key sequence to address 6 virtual terminals (tty2-tty6); tty1 is default terminal
+	
+Switching Between Virtual Terminals
+	- Use chvt to switch between virtual terminals: example chvt 5
+	- Or use ctrl alt fn
+	- Need to be root in order to change virtual terminals
+	- w command shows terminals and users active
+	
+
+Using su to Work as Another User
+	- su command is used to open a shell as another user
+		- useful to open a root shell
+		- For root, useful to test functionality as user
+	- The password of the target user is required
+	- Use su - to open a login shell
+		- This will give complete access to the environment of the target user
+		- su - will prompt you for default root password
+		- Once you are in as root, enter target user and no password prompted
+			- Example: su - and then su - linda
+
+Using sudo to Perform Administrator Tasks
+	- sudo is used to run tasks as another user
+	- sudo prompts for the password of the current user
+	- Users must be authorized to use sudo
+	- Authorization through /etc/sudoers and /etc/sudoers.d/*
+		- Do not edit directly but use visudo
+	- Users that are member of the group wheel can use sudo to run administration tasks
+	- In order to create a sudo configuration, use visudo in a root shell.
+	- id command shows groups user is a part of. Example: id student
+	- usermod command adds user (student) to different group (wheel). Example: user mod -aG wheel student
+	- Group membership of users is read when users logged in only, so to see changes reflected you need to sign out and in again
+	- tail -n 1 /etc/passwd will show recently created user
+
+Using ssh to Log In Remotely
+	- SSH is secure shell, and used to establish a secure remote connection, meaning it's encrypted
+	- Identity of targeted server is verified though host keys.
+		- After initial connection, host key is stored in ~/.ssh/known_hosts
+	- Sensitive data will be sent through an encrypted connection
+	- Use ssh -X or ssh -Y to display graphical screens from targeted server locally if it is installed; -Y is more secure and allows you to forward graphical screens securely
+	- Use ssh [user]@[host] to log in as user
+	- Use exit to terminate ssh session
+	
+
