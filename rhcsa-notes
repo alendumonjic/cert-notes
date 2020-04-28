@@ -438,3 +438,4 @@ Managing Password Properties
 		- Look for the pam_tally2 module
 	- To change password settings for current users, use chage or passwd as root. Example: chage Linda
 	- All changes are written to /etc/shadow file so you can use grep linda /etc/shadow to see info
+
