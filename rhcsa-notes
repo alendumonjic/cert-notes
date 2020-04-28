@@ -344,3 +344,97 @@ Using ssh to Log In Remotely
 	- Use exit to terminate ssh session
 	
 
+Lesson 6: Managing Users and Groups
+
+Understanding the Need for User Accounts
+	- A user is a security principle, users accounts are used to provide people or processes access to system resources
+	- Processes are using system accounts
+	- System accounts have a lower user ID
+	- People are using regular user accounts with higher user ID
+	
+
+Understanding User Properties
+	- /etc/passwd -- where users and properties are defined.
+		- Example: student:x:1000:1000:student:/home/student:/bin/bash
+			- "student": name of the account
+			- "x": password placeholder
+			- "1000": UID - unique identifier for users
+			- "1000": GID - primary group ID
+			- "student": GECOS - additional non-mandatory info about user
+			-  "/home/student": environment where users create personal files
+			- "/bin/bash": shell
+			- Default shell on RHEL is /bin/bash
+			- On RHEL 8, default group is the user name when user is created
+			
+
+Creating and Managing Users
+	- useradd: create user accounts. Example: "useradd -c bill bill"
+		- -c is for comment on GECOS field
+		- -p is to set an encrypted password on new user
+		- -s is to set a shell different from /bin/bash, such as /bin/false to create a user who is never supposed to log in
+	- usermod: modify user accounts. Example: "usermod -aG wheel bill"
+		- -a is to append user to supplemental group, such as wheel
+		- -G is to create a new list of supplemental groups for users, removing all currently assigned ones. Use both, "-aG," to keep current list and add to it
+	- id: use this command with username to see current groups: Example: "id bill"
+	- userdel: delete user accounts. Example: "userdel -f bill"
+		- -f forces deletion of user
+		- -r removes user home directory and spool, where user email is stored
+	- passwd: set passwords. Example: "password -l linda"
+		- -u is set to unlock paassword
+		- -e is to set expiration
+		- -l is to lock a user account
+		- -x is to set maximum password lifetime (root only)
+		- -s reports password status
+
+
+Managing Default User Settings
+	- Use "useradd -D" to specify default settings. 
+	- Settings specified using above command are written to /etc/default/useradd apply to useradd only
+	- You can ignore "GROUP=100," which is an old setting and is no longer used because it is overwritten elsewhere
+	- /etc/skel is where contents that'll be copied to home directory of new users
+		- if you add any files to this, such as a text file from vim, they will be applied to new users directories
+	*- Alternatively write default settings to /etc/login.defs
+		- open in vim to make changes and note that it doesn't affect current users but only new ones
+	- Hidden files shape the user environment
+	
+
+Understanding /etc/passwd and /etc/shadow
+	- /etc/passwd is used to store user properties
+		- root user has UID of 0
+		- /sbin/nologin means bin system accounts don't log in to system
+		- sync system account is an example of an account that runs one task only; same with halt
+		- nobody user with no permissions at all; just a user entity
+	- password properties are stored in /etc/shadow
+		- passwords are stored separately
+		- you'll see the username, the hashed password and then a five digit number that calculates all Linux time since January 1970
+		- after the five digit number, you'll see 0 for minimum days the password must be used and then 99999 for maximum days the password must be used
+		- 7 is the number of days warning before expiration
+		- If you see !! it means password is disabled
+	- NEVER use an editor to edit /etc/shadow
+	- /etc/group is used for group properties
+	- To remove a password, use passwd -l to lock the user
+
+Understanding Group Membership
+	- Each user must be a member of at least one group, which is auto taken care of if using proper utilities
+	- Primary Group Membership is managed through /etc/passwd
+	- The user primary group becomes group-owner if user creates a file
+	- Additional secondary groups can be defined as well
+	- Secondary Group Membership is managed through /etc/groups
+	- Use id command to see which groups a user is a member of
+	- GID is primary group of user
+	- use grep to obtain group info. Example: grep linda /etc/group
+	
+
+Creating and Managing Groups
+	- Use groupadd to add groups. Example: groupadd sales
+	- groupdel and groupmod to delete and modify groups. Example: groupdel sales
+	- Use lid -g [groupname] to list all users that are a member of a specific group. Example: lid -g wheel
+
+
+Managing Password Properties
+	- Basic password requirements are set in /etc/login.defs
+		- The only thing you can set is how long a passwd can be; by default it's 5
+	- For advanced password properties, Pluggable Authentication Modules (PAM) can be used
+		- Look for the pam_tally2 module
+	- To change password settings for current users, use chage or passwd as root. Example: chage Linda
+	- All changes are written to /etc/shadow file so you can use grep linda /etc/shadow to see info
