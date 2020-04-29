@@ -438,4 +438,94 @@ Managing Password Properties
 		- Look for the pam_tally2 module
 	- To change password settings for current users, use chage or passwd as root. Example: chage Linda
 	- All changes are written to /etc/shadow file so you can use grep linda /etc/shadow to see info
+	
 
+Lesson 7: Managing Permissions
+
+Understanding Ownership
+	- To determine which permissions a user has, Linux uses ownership
+	- Every file has a user-owner, a group-owner and others entity that is also granted permissions (ugo)
+	- Linux permissions are not additive. If you are the owner, permissions are applied and that's all
+	- If you are neither group owner nor user owner, you are others
+	- Use ls -l command/option to display ownership and permissions
+		- drwx------. 1 root root 0: d is for directory filetype; r is read; w is write; x is execute; the first three dashes are group permissions; the last three are others; the first root is owner user; the second root is group;
+	
+
+Changing File Ownership
+	- Use chown user [:group] file to set user-ownership. Example: chown anna newfile or chown anna:profs newfile, which sets user and group owners on file
+	- Use chgrp group file to set group-ownership. Example: chgrp students newfile
+
+
+Understanding Basic Permissions
+	- Read (4) allows read-only files and list directory permission 
+	- Write (2) allows modify files and delete/create directories
+	- Execute (1) allows run files and cd directories
+	- Execute is always paired with read and vice versa, and are minimal permissions for a directory
+	- chmod is used to modify permissions
+
+
+Managing Basic Permissions
+	- chmod is used to manage permissions
+	- It can be used in absolute or relative mode
+		- Absolute mode example: chmod 750 myfile -- 7 is rwx for user, 5 is rx for group, 0 is others. 
+		- Relative mode example: chmod +x myscript -- adds execute permission to file. 
+
+
+Understanding umask
+	- The umask is a shell setting that subtracts the umask from the default permissions
+	- Default permissions for a file are 666
+	- Default permissions for a directory are 777
+	- If you have a umask setting of 022, the result is all new files will have a permission for 644 and directories are 755
+		- Example: umask command alone returns the setting 0022 (ignore first zero); to change it, type "umask [new setting that'll subtract from defaults]"
+	- umask comes from a shell config file in /etc/profile
+	- Search vim files with a forward slash, so /umask to find it on page
+	- To change it, it's best to do it in user's home directory and in the .bash_profile file using vim, where it can be added under the comment, "# User specific environment and startup programs"
+	
+
+Understanding Special Permissions
+	- SUID (4) is set user ID and allows you to run files as owner and no meaning on directory
+	- SGIP (2) is set group ID and allows you to run files as group owner and directories will inherit the directory group owner
+	- Sticky bit (1) has no meaning on files but allows directories to be deleted if you are the owner of the file or the directory that contains the files
+
+
+Managing Special Permissions
+	- SUID: use chmod 4770 [file name] or chmod u+s [file name]
+	- SUID should not be used unless there's a really specific case
+	- SGID: use chmod 2770 [file name] or chmod g+s [file name]
+	- Sticky bit: use chmod 1770 [file name] or chmod +t [file name]
+		- Sticky bit is indicated in permissions with an uppercase T under others
+	
+
+Understanding ACLs
+	- ACLs are used to grant permissions to additional users and groups
+	- The normal ACL applies to existing files only, so it applies to existing files recursively in a directory but not on new ones
+	-  Use a default ACL on a directory if you want it to apply to new files too
+	- He suggests setting a default ACL in directories
+	- getafcl shows current settings
+	- setfacl -R -m g:somegroup:rx /data/groups; -m is for modify; g is for group; rx is read/write
+	- setfacl -m d:g:somegroup:rx /data/groups - do this for new files to receive ACL in directory. The d sets it to default on directory
+	
+
+Managing ACLs
+	- getafcl works even if you don't have current directory
+	- Use setfacl on new directories to begin with
+	- If there's a "+" on the ls -l permissions list, the default ACL is applied
+	- The default masks sets itself up
+
+
+Troubleshooting Permissions
+	- To delete files, all you need is write permission
+	- If you don't have write permission on a file but you open it in vim, vim will create a new file with the same name and overwrite the old file
+	- chmod +t . applies sticky bits on current directory
+
+
+*Lab Notes
+	- Change umask in user home directory in .bash_profile file
+		- Example: cd/home/linda and then vim .bash_profile and then set umask 007, which ensures user and group have full access
+	- cd/data | mkdir profs students
+	- 770 means full rw access to directories but others has zero permission; example: chmod 3770 students and chmod 3770 profs
+	- 2770 is all files are writable for all members using SGID
+	- 3770 is user can only delete files they created
+	- Apply sticky bits for read access to everything in /data/students
+	- Make Anna headmaster by chown Anna:students students and chown Anna:profs profs
+	- setfacl -m d:g:profs:rx /data/students gives members have read access to everything in /data/students
