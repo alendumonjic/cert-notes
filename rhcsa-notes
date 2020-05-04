@@ -628,3 +628,46 @@ Testing Network Connections
 	- dig can test DNS nameserver working; example: dig google.com
 	- If ping 8.8.8.8 is unreachable for example, either local IP or routing is wrong
 	- ip route add default via [ip] 
+
+
+Module 1 Quiz Answers
+
+1. The man -k command looks in the man database. This database is created through a scheduled job. You can manually run the mandb command to generate the database.
+
+2. The gg command moves the cursor to the top line in the current document. All the other commands listed here write the file contents and quit.
+
+3.The /var/lib directory should be used to store libraries. Even if some applications historically have written files to this directory, it should not be used to store configuration files. The /etc directory is the common location for configuration files. Since RHEL 7, default configuration files may be written to a subdirectory in /usr/lib. Dynamically generated configuration files may be created in /run. 
+
+4. To create a symbolic link, you need to use the ln command with the -s option. Next, the name of the original file must be listed and then the name of the link that is created.
+
+5. The mv command can be used to move a file from one location to another location. If the target directory is the same as the source directory, the mv command just renames the file.
+
+6. The which command searches $PATH for the command that has been provided as an argument and for that reason provides a very fast way to find files.
+
+7. the -z option used with tar compresses files using the gzip utility.
+
+8. The -v option can be used with grep to show lines that do not contain the string used as an argument with the grep command.
+
+9. To search for lines that start with a string, use the ^ regular expression with grep. Note that when using regular expressions, it is recommended to put the entire argument to the grep command between single quotes.
+
+10. The substitute command (s) is needed to change a string. To ensure that the result is written to the target file, use the option -i. The -e command is used to pass an edit command and in this case is not needed. To make sure that all occurrences, and not just the first one on a line, are substituted, end the substitute string with g.
+
+11. The chvt command is used to change to another virtual terminal.
+
+12. The sudo configuration is written to the file /etc/sudoers. Notice that this file should not be edited directly but only by using the visudo command.
+
+13. Use sudo -i to open a root shell as an ordinary user. Notice that this works only if the current user is a member of the group wheel. The su command is incorrect, as it causes you to be prompted for the root user password.
+
+14. All files from the /etc/skel directory are copied to new user home directories when the new users are created.
+
+15. Default settings for creating new users are written to the /etc/login.defs configuration file.
+
+16. The sticky bit permission ensures that a user can delete a file only if he or she is the owner of the file or the owner of the directory containing the file.
+
+17. When used in absolute mode, the first digit is for special permissions, and the following digits are for user, group, and others. Mode 6 for special permissions sets the SUID and SGID; mode 7 for user is read, write, and execute; and mode 5 for group sets read and execute.
+
+18. The ip command in RHEL 8 is used for managing runtime network configuration. Notice that ifconfig should no longer be used as it has been deprecated for a long time.
+
+19. The nmcli command directly interfaces with NetworkManager and tells the interface to reread its configuration. ifup would also do this, but it has been deprecated.
+
+20. The persistent DNS server configuration is written to the configuration file /etc/sysconfig/network-scripts/ifcfg-eth0. From there, it is written by NetworkManager to /etc/resolv.conf.
